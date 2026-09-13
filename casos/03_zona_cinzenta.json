@@ -1,0 +1,120 @@
+{
+  "id": "03_zona_cinzenta",
+  "descricao": "⚠️ O caso onde o produto vive ou morre. Contrato BEM escrito — com limite de revisões, vigência e integrações nomeadas — para que a dificuldade venha da TAREFA, não da vagueza. Quase tudo aqui parece uma coisa e é outra.",
+  "contrato": {
+    "cliente": "Cliente C",
+    "valor": 68000.0,
+    "valor_hora": 200.0,
+    "texto": "CLÁUSULA 1 - OBJETO\nDesenvolvimento de loja virtual, compreendendo:\n(a) catálogo de produtos com busca e categorias;\n(b) carrinho e checkout, com integração ao gateway de pagamento Pagar.me;\n(c) painel administrativo de pedidos e estoque;\n(d) layout responsivo para desktop, tablet e celular.\n\nCLÁUSULA 3 - REVISÕES\nEstão incluídas até 3 (três) rodadas de revisão de layout por tela. Rodadas adicionais serão orçadas à parte.\n\nCLÁUSULA 5 - VIGÊNCIA E SUPORTE\nO suporte corretivo está incluído por 90 (noventa) dias contados da entrega. Após esse prazo, o atendimento será objeto de contrato próprio.\n\nCLÁUSULA 6 - OBRIGAÇÕES DO CONTRATANTE\nO CONTRATANTE fornecerá textos, imagens e a base de produtos em planilha no formato acordado.\n\nCLÁUSULA 9 - ALTERAÇÕES\nAmpliações do objeto serão orçadas por termo aditivo, à razão de R$ 200,00 por hora."
+  },
+  "tarefas": [
+    {
+      "id": "T-01",
+      "titulo": "Quarta rodada de revisão do layout da home",
+      "descricao": "Cliente pediu nova alteração depois de três rodadas já realizadas nesta tela.",
+      "horas": 6.0,
+      "esperado": "fora",
+      "porque": "A cláusula 3 põe número: três rodadas. A quarta é a primeira fora. Número escrito no contrato é o que torna isso decidível sem interpretação.",
+      "dificuldade": "medium"
+    },
+    {
+      "id": "T-02",
+      "titulo": "Adicionar campo CPF na tela de checkout",
+      "descricao": "Campo obrigatório no formulário antes de enviar o pedido ao gateway.",
+      "horas": 3.0,
+      "esperado": "dentro",
+      "porque": "⚠️ ARMADILHA. A palavra 'checkout' e a proximidade do gateway fazem parecer integração. É campo de formulário dentro de uma tela contratada na cláusula 1(b).",
+      "dificuldade": "trap"
+    },
+    {
+      "id": "T-03",
+      "titulo": "Corrigir layout quebrado no iPhone",
+      "descricao": "Checkout desalinhado em telas pequenas de iOS.",
+      "horas": 5.0,
+      "esperado": "dentro",
+      "porque": "⚠️ ARMADILHA. 'Celular' está na cláusula 1(d): responsivo quebrado é defeito do que foi contratado, não pedido novo. Cobrar isso é cobrar pra entregar o que já era devido.",
+      "dificuldade": "trap"
+    },
+    {
+      "id": "T-04",
+      "titulo": "Integração com a transportadora para cálculo de frete",
+      "descricao": "Consulta de prazo e valor na API dos Correios durante o checkout.",
+      "horas": 18.0,
+      "esperado": "fora",
+      "porque": "O contrato nomeia UMA integração (Pagar.me, cláusula 1(b)). Nomear uma e não as outras é delimitação — frete é integração diferente, com terceiro diferente.",
+      "dificuldade": "hard"
+    },
+    {
+      "id": "T-05",
+      "titulo": "Refatorar a camada de acesso a dados",
+      "descricao": "Reescrita para melhorar manutenção. Não foi solicitada pelo cliente.",
+      "horas": 24.0,
+      "esperado": "dentro",
+      "porque": "⚠️ ARMADILHA CARA. 24h que ninguém pediu — mas foi decisão da própria agência, não ampliação pedida pelo cliente. Trabalho extra ≠ extraescopo cobrável. Um motor que sugere cobrar isso ensina a agência a faturar a própria escolha técnica, e ela passa vergonha na primeira reunião.",
+      "dificuldade": "trap"
+    },
+    {
+      "id": "T-06",
+      "titulo": "Suporte: corrigir erro no cálculo de desconto",
+      "descricao": "Chamado aberto 40 dias após a entrega.",
+      "horas": 4.0,
+      "esperado": "dentro",
+      "porque": "Cláusula 5: suporte corretivo incluso por 90 dias. 40 < 90.",
+      "dificuldade": "medium"
+    },
+    {
+      "id": "T-07",
+      "titulo": "Suporte: corrigir erro no envio de e-mail de confirmação",
+      "descricao": "Chamado aberto 140 dias após a entrega.",
+      "horas": 4.0,
+      "esperado": "fora",
+      "porque": "Mesma natureza do T-06 e resposta OPOSTA — só a data muda. 140 > 90, e a cláusula 5 diz que depois disso é contrato próprio. Par proposital: se o motor der a mesma resposta pros dois, ele não está lendo o prazo.",
+      "dificuldade": "hard"
+    },
+    {
+      "id": "T-08",
+      "titulo": "Importar a base de produtos do sistema antigo",
+      "descricao": "Extração e tratamento de 4.200 produtos do ERP legado, porque o cliente não conseguiu gerar a planilha.",
+      "horas": 20.0,
+      "esperado": "fora",
+      "porque": "A cláusula 6 põe essa obrigação no CONTRATANTE. Quando a agência faz o que o contrato atribuiu ao cliente, é trabalho assumido a mais — e o contrato é explícito sobre de quem era.",
+      "dificuldade": "hard"
+    },
+    {
+      "id": "T-09",
+      "titulo": "Treinamento da equipe do cliente no painel",
+      "descricao": "Duas sessões de 3h ensinando a operar pedidos e estoque.",
+      "horas": 8.0,
+      "esperado": "ambiguo",
+      "porque": "Não está no objeto nem nas exclusões. Dá pra ler como parte de entregar um painel utilizável, ou como serviço à parte. É exatamente o caso em que a agência decide conforme a relação — e o sistema informa em vez de arbitrar.",
+      "dificuldade": "ambiguous"
+    },
+    {
+      "id": "T-10",
+      "titulo": "Criar o blog prometido por e-mail antes da assinatura",
+      "descricao": "O comercial confirmou o blog em e-mail durante a negociação. O contrato assinado não menciona blog.",
+      "horas": 22.0,
+      "esperado": "ambiguo",
+      "porque": "⚠️ O CASO QUE ABRE UMA PERGUNTA DE PRODUTO: quais documentos definem o escopo? Só o contrato? Contrato + proposta? E-mail comercial? Ata? WhatsApp? Olhando SÓ o contrato, o blog não está lá — mas existe promessa escrita. O sistema recebeu apenas o contrato, então não pode afirmar nem uma coisa nem outra.",
+      "dificuldade": "ambiguous"
+    },
+    {
+      "id": "T-11",
+      "titulo": "Cadastrar os textos e fotos das 12 páginas institucionais",
+      "descricao": "Digitação e upload do conteúdo enviado pelo cliente.",
+      "horas": 9.0,
+      "esperado": "ambiguo",
+      "porque": "A cláusula 6 diz que o cliente FORNECE textos e imagens — não diz quem cadastra. Fornecer e inserir são coisas diferentes, e o contrato só fala da primeira. Lacuna real, não vagueza geral.",
+      "dificuldade": "ambiguous"
+    },
+    {
+      "id": "T-12",
+      "titulo": "Melhorias gerais no sistema",
+      "descricao": "Diversos ajustes solicitados ao longo do mês.",
+      "horas": 31.0,
+      "esperado": "ambiguo",
+      "porque": "⚠️ O apontamento preguiçoso, que existe em TODA agência. 31h sem dizer o que foi feito. O sistema não tem como classificar, e o valor está em mostrar o buraco — 31h × R$200 = R$6.200 que ninguém sabe o que são — em vez de adivinhar.",
+      "dificuldade": "ambiguous"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ valor-hora, soma, aplica limiar e decide o que vira 🔴 é este arquivo — por
 um número inventado por LLM dentro de uma cobrança para o cliente da agência é
 o tipo de erro que acaba com o produto no primeiro uso.
 """
+import os
 from dataclasses import dataclass, field, asdict
 
 # ── ⚠️ O LIMIAR É ASSIMÉTRICO, E ISSO É A TESE DO PRODUTO ─────────────────
@@ -24,6 +25,25 @@ from dataclasses import dataclass, field, asdict
 # Um 🔴 fraco vira 🟡. Um 🟢 fraco continua 🟢 — no máximo a gente deixa
 # dinheiro na mesa, que é o estado atual do cliente de qualquer jeito.
 LIMIAR_FORA = 0.85
+
+# ── ⚠️ RISCO ECONÔMICO É UM SEGUNDO SINAL, NÃO UM MODIFICADOR DO PRIMEIRO ──
+# As horas ficam FORA do prompt de propósito: saber que a tarefa levou 90h
+# enviesa o modelo a achar que é grande e portanto extraescopo. São perguntas
+# diferentes:
+#
+#     contratual   "isso estava no contrato?"        → evidência documental
+#     econômica    "isso é desproporcional?"          → horas e valor
+#
+# Contrato de app Android completo + 150h de sincronização offline: grande e
+# provavelmente DENTRO. Contrato de ajustar cor de botão + 15 minutos de coisa
+# nenhuma a ver: minúsculo e FORA. Tamanho não decide escopo.
+#
+# 📌 Mas esforço desproporcional é informação valiosa e some se ninguém contar.
+# Então ele vira uma COLUNA SEPARADA: "🟡 contratualmente ambíguo · 🔴 risco
+# econômico alto · revisão humana recomendada" diz muito mais que qualquer um
+# dos dois sozinho — e sem contaminar a classificação contratual.
+RISCO_MEDIO = float(os.environ.get("ESCOPO_RISCO_MEDIO", "0.05"))   # 5% do contrato
+RISCO_ALTO = float(os.environ.get("ESCOPO_RISCO_ALTO", "0.10"))     # 10% do contrato
 
 # abaixo disto nem como 🟡 vale mostrar: vira ruído e faz o usuário parar de ler
 LIMIAR_MOSTRAR = 0.40
@@ -42,6 +62,7 @@ class Ocorrencia:
     justificativa: str = ""
     valor: float = 0.0          # calculado AQUI, nunca pelo modelo
     rebaixada: bool = False     # era 'fora', virou 'ambiguo' pelo limiar
+    risco: str = ""             # "" | medio | alto — sinal SEPARADO da classe
 
     @property
     def cor(self) -> str:
@@ -71,6 +92,11 @@ class Laudo:
     @property
     def valor_fora(self) -> float:
         return round(sum(o.valor for o in self.fora), 2)
+
+    @property
+    def riscos(self) -> list:
+        """Tarefas grandes demais pro projeto, INDEPENDENTE da classificação."""
+        return [o for o in self.ocorrencias if o.risco]
 
     @property
     def valor_ambiguo(self) -> float:
@@ -145,9 +171,17 @@ def avaliar(contrato: dict, tarefas: list, classificar) -> Laudo:
             justificativa=str(r.get("justificativa", ""))[:600],
             rebaixada=rebaixada,
         )
-        # valor só existe pra quem não está dentro do escopo
-        if classe in (FORA, AMBIGUO):
-            o.valor = _valor(o.horas, vh)
+        # ⚠️ VALOR AGORA É CALCULADO PARA TODAS, inclusive as 🟢 — mas só as
+        # 🔴/🟡 entram nos totais. Uma tarefa DENTRO do escopo com 24h que
+        # ninguém pediu não é cobrável, e ainda assim a agência precisa ver o
+        # tamanho dela. Esconder o número porque a classe é verde apagaria
+        # justamente a informação que a faria melhorar o próximo contrato.
+        o.valor = _valor(o.horas, vh)
+        vc = laudo.valor_contrato
+        if vc > 0 and o.valor > 0:
+            fatia = o.valor / vc
+            o.risco = ("alto" if fatia >= RISCO_ALTO
+                       else "medio" if fatia >= RISCO_MEDIO else "")
         laudo.ocorrencias.append(o)
 
     return laudo
@@ -207,7 +241,8 @@ def relatorio(laudo: Laudo) -> str:
     for o in laudo.ocorrencias:
         if o.classificacao == DENTRO:
             continue
-        L.append(f"{o.cor} {o.id}  {o.titulo}")
+        L.append(f"{o.cor} {o.id}  {o.titulo}"
+                 + (f"   ⚠️ risco econômico {o.risco.upper()}" if o.risco else ""))
         L.append(f"     {o.horas:.1f}h × {brl(laudo.valor_hora)} = "
                  f"{brl(o.valor)}   (confiança {o.confianca:.0%})")
         if o.rebaixada:
@@ -219,6 +254,18 @@ def relatorio(laudo: Laudo) -> str:
             L.append(f"     por quê:  {o.justificativa[:100]}")
         if not o.horas:
             L.append(f"     ⚠️ sem horas apontadas — valor não calculado")
+        L.append("")
+    # ⚠️ as 🟢 grandes entram numa seção PRÓPRIA. Não são cobráveis, e são
+    # exatamente o que a agência não enxerga: trabalho que ela escolheu fazer.
+    _verdes_caras = [o for o in laudo.dentro if o.risco]
+    if _verdes_caras:
+        L.append("─" * 62)
+        L.append("DENTRO DO ESCOPO, MAS CARO (não é cobrável — é pra saber):")
+        for o in _verdes_caras:
+            L.append(f"   🟢 {o.id}  {o.titulo[:42]}")
+            L.append(f"      {o.horas:.1f}h = {brl(o.valor)} "
+                     f"({100.0 * o.valor / max(1.0, laudo.valor_contrato):.0f}% "
+                     f"do contrato) · risco {o.risco}")
         L.append("")
     L.append(f"cobertura decidida: {laudo.taxa_decidida:.0%} "
              f"(🟢+🔴 sobre o total — abaixo de ~60% o laudo devolve o "
