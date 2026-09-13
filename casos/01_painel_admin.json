@@ -14,7 +14,8 @@
       "descricao": "Listagem com paginação, formulário de cadastro e edição, exclusão com confirmação.",
       "horas": 22.0,
       "esperado": "dentro",
-      "porque": "É literalmente a cláusula 1(a)."
+      "porque": "É literalmente a cláusula 1(a).",
+      "dificuldade": "easy"
     },
     {
       "id": "T-02",
@@ -22,7 +23,8 @@
       "descricao": "Login por e-mail/senha e fluxo de reset com envio de link.",
       "horas": 14.0,
       "esperado": "dentro",
-      "porque": "Cláusula 1(b), incluindo a recuperação, que está escrita."
+      "porque": "Cláusula 1(b), incluindo a recuperação, que está escrita.",
+      "dificuldade": "easy"
     },
     {
       "id": "T-03",
@@ -30,7 +32,8 @@
       "descricao": "Webhook de envio de mensagem quando um pedido muda de status.",
       "horas": 14.0,
       "esperado": "fora",
-      "porque": "Integração com terceiro, excluída nominalmente na cláusula 2. É o caso fácil — se o motor errar ESTE, não serve."
+      "porque": "Integração com terceiro, excluída nominalmente na cláusula 2. É o caso fácil — se o motor errar ESTE, não serve.",
+      "dificuldade": "easy"
     },
     {
       "id": "T-04",
@@ -38,7 +41,8 @@
       "descricao": "Autenticação OAuth com conta Google, além do login por senha.",
       "horas": 11.0,
       "esperado": "fora",
-      "porque": "O contrato diz 'autenticação por e-mail e senha'. OAuth é integração com terceiro E amplia o método contratado. Caso clássico de scope creep que passa batido porque 'é login, e login está no contrato'."
+      "porque": "O contrato diz 'autenticação por e-mail e senha'. OAuth é integração com terceiro E amplia o método contratado. Caso clássico de scope creep que passa batido porque 'é login, e login está no contrato'.",
+      "dificuldade": "hard"
     },
     {
       "id": "T-05",
@@ -46,7 +50,8 @@
       "descricao": "Campo de período no formulário de filtros do relatório.",
       "horas": 3.0,
       "esperado": "dentro",
-      "porque": "⚠️ ARMADILHA. Parece pedido novo do cliente, mas a cláusula 1(d) diz 'módulo de relatórios COM FILTROS'. Filtro é o que foi contratado. Acusar isso é falso positivo, e falso positivo com cliente real queima a confiança."
+      "porque": "⚠️ ARMADILHA. Parece pedido novo do cliente, mas a cláusula 1(d) diz 'módulo de relatórios COM FILTROS'. Filtro é o que foi contratado. Acusar isso é falso positivo, e falso positivo com cliente real queima a confiança.",
+      "dificuldade": "trap"
     },
     {
       "id": "T-06",
@@ -54,7 +59,8 @@
       "descricao": "Além do Excel já existente, gerar a mesma visão em PDF.",
       "horas": 9.0,
       "esperado": "ambiguo",
-      "porque": "O contrato diz 'exportação em planilha'. PDF não é planilha — mas também não é funcionalidade nova, é outro formato da mesma entrega. Dá pra defender os dois lados, e é EXATAMENTE o tipo de caso que tem que cair em revisão humana em vez de virar cobrança."
+      "porque": "O contrato diz 'exportação em planilha'. PDF não é planilha — mas também não é funcionalidade nova, é outro formato da mesma entrega. Dá pra defender os dois lados, e é EXATAMENTE o tipo de caso que tem que cair em revisão humana em vez de virar cobrança.",
+      "dificuldade": "ambiguous"
     },
     {
       "id": "T-07",
@@ -62,7 +68,8 @@
       "descricao": "Exclusão quebrava quando o registro tinha dependências.",
       "horas": 4.0,
       "esperado": "dentro",
-      "porque": "Cláusula 4: defeito em funcionalidade entregue. Nunca se cobra, e o motor não pode nem sugerir."
+      "porque": "Cláusula 4: defeito em funcionalidade entregue. Nunca se cobra, e o motor não pode nem sugerir.",
+      "dificuldade": "trap"
     },
     {
       "id": "T-08",
@@ -70,7 +77,8 @@
       "descricao": "Provisionamento, nginx, certificado, rotina de backup.",
       "horas": 16.0,
       "esperado": "fora",
-      "porque": "Cláusula 2 exclui infraestrutura e hospedagem nominalmente."
+      "porque": "Cláusula 2 exclui infraestrutura e hospedagem nominalmente.",
+      "dificuldade": "easy"
     },
     {
       "id": "T-09",
@@ -78,7 +86,8 @@
       "descricao": "Novo perfil com acesso de leitura a todos os módulos.",
       "horas": 7.0,
       "esperado": "fora",
-      "porque": "O contrato diz TRÊS níveis e nomeia os três. Um quarto amplia o objeto. O número no contrato é o que torna isso decidível."
+      "porque": "O contrato diz TRÊS níveis e nomeia os três. Um quarto amplia o objeto. O número no contrato é o que torna isso decidível.",
+      "dificuldade": "hard"
     },
     {
       "id": "T-10",
@@ -86,7 +95,8 @@
       "descricao": "Acompanhamento do projeto com o cliente.",
       "horas": 12.0,
       "esperado": "dentro",
-      "porque": "⚠️ ARMADILHA. Não está no objeto, mas é custo de conduzir o projeto, não entrega ampliada. Motor que cobra reunião de alinhamento como aditivo faz a agência passar vergonha com o cliente."
+      "porque": "⚠️ ARMADILHA. Não está no objeto, mas é custo de conduzir o projeto, não entrega ampliada. Motor que cobra reunião de alinhamento como aditivo faz a agência passar vergonha com o cliente.",
+      "dificuldade": "trap"
     }
   ]
 }

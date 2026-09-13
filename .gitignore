@@ -5,3 +5,8 @@ __pycache__/
 # ⚠️ documento de cliente NUNCA entra no repositório
 dados_reais/
 *.pdf
+
+# nem execuções (podem conter trecho de contrato real)
+execucoes/
+.env.*
+!.env.example

@@ -14,7 +14,8 @@
       "descricao": "Home, sobre, serviços, contato.",
       "horas": 30.0,
       "esperado": "dentro",
-      "porque": "'Site institucional' cobre isto sem esforço interpretativo."
+      "porque": "'Site institucional' cobre isto sem esforço interpretativo.",
+      "dificuldade": "easy"
     },
     {
       "id": "T-02",
@@ -22,7 +23,8 @@
       "descricao": "Cadastro, login e painel do cliente.",
       "horas": 26.0,
       "esperado": "dentro",
-      "porque": "Nomeado no objeto."
+      "porque": "Nomeado no objeto.",
+      "dificuldade": "easy"
     },
     {
       "id": "T-03",
@@ -30,7 +32,8 @@
       "descricao": "Cobrança recorrente dentro da área do cliente.",
       "horas": 20.0,
       "esperado": "ambiguo",
-      "porque": "⚠️ Num contrato bem escrito isto seria 'fora' com folga. Aqui o objeto não exclui nada e remete a uma 'proposta comercial' que o motor não tem. Marcar 🔴 seria fingir certeza que o documento não sustenta."
+      "porque": "⚠️ Num contrato bem escrito isto seria 'fora' com folga. Aqui o objeto não exclui nada e remete a uma 'proposta comercial' que o motor não tem. Marcar 🔴 seria fingir certeza que o documento não sustenta.",
+      "dificuldade": "ambiguous"
     },
     {
       "id": "T-04",
@@ -38,7 +41,8 @@
       "descricao": "Tradução e seletor de idioma.",
       "horas": 18.0,
       "esperado": "ambiguo",
-      "porque": "Mesmo motivo. Parece extra, mas 'site institucional' não diz idioma. Sem a proposta anexa, não dá."
+      "porque": "Mesmo motivo. Parece extra, mas 'site institucional' não diz idioma. Sem a proposta anexa, não dá.",
+      "dificuldade": "ambiguous"
     },
     {
       "id": "T-05",
@@ -46,7 +50,8 @@
       "descricao": "App nativo publicado na Play Store.",
       "horas": 90.0,
       "esperado": "fora",
-      "porque": "Mesmo um objeto vago não estica até app nativo — e 90h num contrato de 18k é desproporção que fala por si. É o piso do que tem que ser detectável mesmo sem contrato bom."
+      "porque": "Mesmo um objeto vago não estica até app nativo — e 90h num contrato de 18k é desproporção que fala por si. É o piso do que tem que ser detectável mesmo sem contrato bom.",
+      "dificuldade": "medium"
     },
     {
       "id": "T-06",
@@ -54,7 +59,8 @@
       "descricao": "Sétima rodada de alterações no design da home.",
       "horas": 22.0,
       "esperado": "ambiguo",
-      "porque": "⚠️ Revisão infinita é uma das maiores sangrias de agência, mas o contrato não limita rodadas. O valor está em MOSTRAR as 22h acumuladas pra uma decisão humana — não em afirmar que é cobrável."
+      "porque": "⚠️ Revisão infinita é uma das maiores sangrias de agência, mas o contrato não limita rodadas. O valor está em MOSTRAR as 22h acumuladas pra uma decisão humana — não em afirmar que é cobrável.",
+      "dificuldade": "ambiguous"
     }
   ]
 }
