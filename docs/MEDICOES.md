@@ -69,3 +69,79 @@ desproporção de esforço deve furar a vagueza do contrato?
 16 tarefas, 5 🔴. Um erro move a precisão em 20 pontos. O relatório avisa isso
 antes dos números de propósito. E o gabarito é meu — então "80% de precisão"
 quer dizer *"o Gemini concordou comigo 80% das vezes"*.
+
+
+---
+
+## 13/09/2026 · caso 03 (zona cinzenta) · gemini-3.8-flash · prompt v1
+
+```
+9/12 · cobertura 75% · 🔴 precisão 60% (3 acusações indevidas)
+
+trap      3/3  100%      ambiguous 2/4   50%
+medium    2/2  100%      hard      2/3   67%
+```
+
+### ⚠️ O teste mais duro do corpus passou
+
+```
+T-06  bug 40 dias após a entrega   → dentro (98%)
+T-07  bug 140 dias após a entrega  → fora   (95%)     vigência: 90 dias
+```
+
+Mesma natureza, mesma redação, **só a data muda**. Ele leu o prazo e fez a
+conta — não reconheceu o formato da frase.
+
+E as armadilhas: **6/6 somando as duas rodadas**. Não caiu no "checkout" do
+campo CPF, não cobrou o responsivo quebrado, e não sugeriu faturar 24h de
+refatoração que a própria agência escolheu fazer.
+
+### Os três erros estão todos no mesmo lugar
+
+```
+T-09 treinamento      ambiguo → fora   @88%   ACUSAÇÃO INDEVIDA
+T-10 blog por e-mail  ambiguo → fora   @90%   ACUSAÇÃO INDEVIDA
+T-04 frete            fora → ambiguo   @80%
+```
+
+Os dois falsos vermelhos são **ausência tratada como exclusão**. ⚠️ E é a
+segunda vez que eu desconfio do meu próprio gabarito depois de o modelo
+discordar — o que é exatamente o motivo de o corpus estar congelado.
+
+---
+
+## DECISÃO · `LIMIAR_FORA` 0.85 → **0.93** (provisório)
+
+Somando as duas rodadas: **28 tarefas, 10 acusações.**
+
+```
+🔴 CERTOS  (7)   95 · 95 · 95 · 95 · 95 · 98 · 98
+🔴 ERRADOS (3)   88 · 90 · 90
+```
+
+**Separação limpa, sem sobreposição.** E a hipótese H1 foi registrada na rodada
+dos casos 01+02, **antes de o caso 03 existir** — então o caso 03 é dado
+independente, não ajuste ao ruído.
+
+O replay (`relimiar.py`, custo zero):
+
+| limiar | 🔴 precisão | indevidas | cobertura |
+|---|---|---|---|
+| 0.85 | 70% | **30%** | 75% |
+| 0.93 | **100%** | 0% | 64% |
+| 0.98 | 100% | 0% | 46% |
+
+**A troca é de produto, e é deliberada:** 1 em cada 3 tarefas indo pra revisão
+humana é ruim. 1 em cada 3 cobranças chegando errada no cliente da agência
+**acaba com o produto** — ela não abre a ferramenta uma segunda vez.
+
+📌 **0.93 e não 0.95.** Resultado idêntico hoje, mas 0.95 fica em cima do menor
+acerto observado; um acerto futuro a 94% se perderia. 0.93 fica no meio da faixa
+limpa, com margem dos dois lados.
+
+⚠️ **NÃO é limiar validado.** 10 acusações, corpus sintético, gabarito de quem
+escreveu o corpus. Recalibrar só com **≥100 tarefas reais rotuladas às cegas** e
+**≥20 casos 🔴 reais** — e mesmo aí será avaliação inicial.
+
+**Trabalho sintético encerrado aqui.** Corpus v1 congelado, prompt v1 congelado,
+limiar provisório escolhido. O gargalo agora é dado real.

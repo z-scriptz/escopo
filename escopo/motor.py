@@ -24,7 +24,34 @@ from dataclasses import dataclass, field, asdict
 # 📌 Então "fora" precisa de evidência forte; "dentro" não precisa de nada.
 # Um 🔴 fraco vira 🟡. Um 🟢 fraco continua 🟢 — no máximo a gente deixa
 # dinheiro na mesa, que é o estado atual do cliente de qualquer jeito.
-LIMIAR_FORA = 0.85
+# ⚠️⚠️ PROVISÓRIO — limiar de SEGURANÇA, não limiar validado (13/09/2026).
+#
+# Escolhido a partir do corpus SINTÉTICO v1, com 10 acusações. A hipótese de
+# subir foi registrada na rodada dos casos 01+02 e confirmada no caso 03, que
+# ainda não existia quando ela foi formulada — então não é ajuste ao ruído.
+# Mas 10 acusações continuam sendo anedota, e o gabarito é de quem escreveu o
+# corpus, não de um dono de agência.
+#
+#     0.85 → 75% cobertura · 30% das acusações INDEVIDAS
+#     0.93 → 64% cobertura ·  0% das acusações indevidas
+#
+# A troca é deliberada e é de produto: 1 em cada 3 tarefas indo pra revisão
+# humana é ruim; 1 em cada 3 cobranças chegando errada no cliente da agência
+# ACABA com o produto. Ela não abre a ferramenta uma segunda vez.
+#
+# 📌 0.93 e não 0.95: os dois dão resultado idêntico hoje, mas 0.95 fica em
+# cima do MENOR acerto observado (95%). Um acerto futuro a 94% seria perdido.
+# 0.93 fica no meio da faixa limpa (erros ≤90%, acertos ≥95%), com margem dos
+# dois lados.
+#
+# ⚠️ RECALIBRAR QUANDO — e só então:
+#     ≥ 100 tarefas REAIS rotuladas às cegas
+#     ≥ 20 casos 🔴 reais confirmados
+# E mesmo aí será avaliação inicial, não estatística definitiva.
+#
+# ⚠️ NÃO OTIMIZAR ISTO NO SINTÉTICO DE NOVO. O corpus v1 está congelado
+# justamente pra que este número pare de ser mexido por conveniência.
+LIMIAR_FORA = float(os.environ.get("ESCOPO_LIMIAR_FORA", "0.93"))
 
 # ── ⚠️ RISCO ECONÔMICO É UM SEGUNDO SINAL, NÃO UM MODIFICADOR DO PRIMEIRO ──
 # As horas ficam FORA do prompt de propósito: saber que a tarefa levou 90h

@@ -163,6 +163,31 @@ _terco = avaliar(CONTRATO, [{"id": str(i), "horas": 1} for i in range(3)],
 checa("1 de 3 decididas vira 0.3333", _terco.taxa_decidida == 0.3333,
       str(_terco.taxa_decidida))
 
+print("\n── ⚠️ O LIMIAR É PROVISÓRIO, E ISSO TEM QUE ESTAR ESCRITO ──")
+# ⚠️ Não é teste de comportamento — é teste de HONESTIDADE do código.
+# 0.93 foi escolhido em 10 acusações de um corpus sintético cujo gabarito é de
+# quem escreveu o corpus. Ele funciona, e não é um número validado. Quem abrir
+# este arquivo daqui a seis meses precisa saber disso antes de confiar nele.
+import escopo.motor as M  # noqa: E402
+_fonte = (BASE / "escopo" / "motor.py").read_text("utf-8")
+checa("o limiar está em 0.93", M.LIMIAR_FORA == 0.93, str(M.LIMIAR_FORA))
+checa("⚠️ marcado como PROVISÓRIO no código", "PROVISÓRIO" in _fonte)
+checa("…com o critério de recalibração escrito",
+      "RECALIBRAR QUANDO" in _fonte and "REAIS" in _fonte,
+      "sem critério, 'provisório' vira permanente por inércia")
+checa("…e com a proibição de reotimizar no sintético",
+      "NÃO OTIMIZAR ISTO NO SINTÉTICO" in _fonte)
+checa("dá pra sobrescrever por ambiente sem editar código",
+      "ESCOPO_LIMIAR_FORA" in _fonte)
+checa("⚠️ e 0.93 ainda rebaixa o que estava errado (88-90%)",
+      avaliar(CONTRATO, [{"id": "A", "horas": 1}],
+              dublê({"A": {"classificacao": FORA, "confianca": 0.90}})
+              ).ocorrencias[0].classificacao == AMBIGUO)
+checa("…e mantém o que estava certo (95%+)",
+      avaliar(CONTRATO, [{"id": "A", "horas": 1}],
+              dublê({"A": {"classificacao": FORA, "confianca": 0.95}})
+              ).ocorrencias[0].classificacao == FORA)
+
 print("\n── os casos sintéticos carregam o gabarito humano ──")
 casos = sorted((BASE / "casos").glob("*.json"))
 checa("existe pelo menos um caso", len(casos) >= 1)
