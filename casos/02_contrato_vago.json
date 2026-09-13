@@ -1,0 +1,60 @@
+{
+  "id": "02_contrato_vago",
+  "descricao": "⚠️ O caso que decide se o produto existe. Contrato curto e genérico — que é como a MAIORIA dos contratos de agência pequena realmente é. Quando o escopo não delimita nada, quase nada é decidível, e o motor tem que ADMITIR isso em vez de inventar certeza.",
+  "contrato": {
+    "cliente": "Cliente B",
+    "valor": 18000.0,
+    "valor_hora": 150.0,
+    "texto": "O presente contrato tem por objeto o desenvolvimento de um site institucional com área do cliente, conforme proposta comercial apresentada, incluindo design, programação e publicação.\n\nPrazo estimado: 60 dias.\nValor: R$ 18.000,00, pago em três parcelas."
+  },
+  "tarefas": [
+    {
+      "id": "T-01",
+      "titulo": "Desenvolver páginas institucionais",
+      "descricao": "Home, sobre, serviços, contato.",
+      "horas": 30.0,
+      "esperado": "dentro",
+      "porque": "'Site institucional' cobre isto sem esforço interpretativo."
+    },
+    {
+      "id": "T-02",
+      "titulo": "Área do cliente com login",
+      "descricao": "Cadastro, login e painel do cliente.",
+      "horas": 26.0,
+      "esperado": "dentro",
+      "porque": "Nomeado no objeto."
+    },
+    {
+      "id": "T-03",
+      "titulo": "Integração com gateway de pagamento",
+      "descricao": "Cobrança recorrente dentro da área do cliente.",
+      "horas": 20.0,
+      "esperado": "ambiguo",
+      "porque": "⚠️ Num contrato bem escrito isto seria 'fora' com folga. Aqui o objeto não exclui nada e remete a uma 'proposta comercial' que o motor não tem. Marcar 🔴 seria fingir certeza que o documento não sustenta."
+    },
+    {
+      "id": "T-04",
+      "titulo": "Versão em inglês do site",
+      "descricao": "Tradução e seletor de idioma.",
+      "horas": 18.0,
+      "esperado": "ambiguo",
+      "porque": "Mesmo motivo. Parece extra, mas 'site institucional' não diz idioma. Sem a proposta anexa, não dá."
+    },
+    {
+      "id": "T-05",
+      "titulo": "Aplicativo Android da área do cliente",
+      "descricao": "App nativo publicado na Play Store.",
+      "horas": 90.0,
+      "esperado": "fora",
+      "porque": "Mesmo um objeto vago não estica até app nativo — e 90h num contrato de 18k é desproporção que fala por si. É o piso do que tem que ser detectável mesmo sem contrato bom."
+    },
+    {
+      "id": "T-06",
+      "titulo": "Ajustes de layout solicitados pelo cliente",
+      "descricao": "Sétima rodada de alterações no design da home.",
+      "horas": 22.0,
+      "esperado": "ambiguo",
+      "porque": "⚠️ Revisão infinita é uma das maiores sangrias de agência, mas o contrato não limita rodadas. O valor está em MOSTRAR as 22h acumuladas pra uma decisão humana — não em afirmar que é cobrável."
+    }
+  ]
+}

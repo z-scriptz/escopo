@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+# ⚠️ documento de cliente NUNCA entra no repositório
+dados_reais/
+*.pdf

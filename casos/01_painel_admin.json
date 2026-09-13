@@ -1,0 +1,92 @@
+{
+  "id": "01_painel_admin",
+  "descricao": "Projeto fechado de painel administrativo. O caso base: escopo escrito de forma razoável, com um extraescopo óbvio, dois limítrofes e uma armadilha.",
+  "contrato": {
+    "cliente": "Cliente A",
+    "valor": 42000.0,
+    "valor_hora": 180.0,
+    "texto": "CLÁUSULA 1 - OBJETO\nDesenvolvimento de sistema web de gestão interna, compreendendo:\n(a) painel administrativo com listagem, cadastro, edição e exclusão de registros;\n(b) autenticação de usuários por e-mail e senha, com recuperação de senha por e-mail;\n(c) três níveis de permissão (administrador, gestor e operador);\n(d) módulo de relatórios com filtros e exportação em planilha.\n\nCLÁUSULA 2 - NÃO INCLUÍDO\nNão fazem parte do objeto: aplicativo móvel nativo, integrações com sistemas de terceiros e serviços de infraestrutura ou hospedagem.\n\nCLÁUSULA 4 - CORREÇÕES\nA CONTRATADA corrigirá, sem custo adicional, defeitos identificados nas funcionalidades entregues durante a vigência deste contrato.\n\nCLÁUSULA 7 - ALTERAÇÕES DE ESCOPO\nAlterações que ampliem o objeto descrito na Cláusula 1 serão orçadas separadamente mediante termo aditivo, à razão de R$ 180,00 por hora."
+  },
+  "tarefas": [
+    {
+      "id": "T-01",
+      "titulo": "Criar CRUD de clientes no painel",
+      "descricao": "Listagem com paginação, formulário de cadastro e edição, exclusão com confirmação.",
+      "horas": 22.0,
+      "esperado": "dentro",
+      "porque": "É literalmente a cláusula 1(a)."
+    },
+    {
+      "id": "T-02",
+      "titulo": "Tela de login e recuperação de senha",
+      "descricao": "Login por e-mail/senha e fluxo de reset com envio de link.",
+      "horas": 14.0,
+      "esperado": "dentro",
+      "porque": "Cláusula 1(b), incluindo a recuperação, que está escrita."
+    },
+    {
+      "id": "T-03",
+      "titulo": "Integração com WhatsApp Business para notificar clientes",
+      "descricao": "Webhook de envio de mensagem quando um pedido muda de status.",
+      "horas": 14.0,
+      "esperado": "fora",
+      "porque": "Integração com terceiro, excluída nominalmente na cláusula 2. É o caso fácil — se o motor errar ESTE, não serve."
+    },
+    {
+      "id": "T-04",
+      "titulo": "Login com Google",
+      "descricao": "Autenticação OAuth com conta Google, além do login por senha.",
+      "horas": 11.0,
+      "esperado": "fora",
+      "porque": "O contrato diz 'autenticação por e-mail e senha'. OAuth é integração com terceiro E amplia o método contratado. Caso clássico de scope creep que passa batido porque 'é login, e login está no contrato'."
+    },
+    {
+      "id": "T-05",
+      "titulo": "Adicionar filtro por data no relatório de vendas",
+      "descricao": "Campo de período no formulário de filtros do relatório.",
+      "horas": 3.0,
+      "esperado": "dentro",
+      "porque": "⚠️ ARMADILHA. Parece pedido novo do cliente, mas a cláusula 1(d) diz 'módulo de relatórios COM FILTROS'. Filtro é o que foi contratado. Acusar isso é falso positivo, e falso positivo com cliente real queima a confiança."
+    },
+    {
+      "id": "T-06",
+      "titulo": "Exportar relatório em PDF",
+      "descricao": "Além do Excel já existente, gerar a mesma visão em PDF.",
+      "horas": 9.0,
+      "esperado": "ambiguo",
+      "porque": "O contrato diz 'exportação em planilha'. PDF não é planilha — mas também não é funcionalidade nova, é outro formato da mesma entrega. Dá pra defender os dois lados, e é EXATAMENTE o tipo de caso que tem que cair em revisão humana em vez de virar cobrança."
+    },
+    {
+      "id": "T-07",
+      "titulo": "Corrigir erro na exclusão de registro com vínculo",
+      "descricao": "Exclusão quebrava quando o registro tinha dependências.",
+      "horas": 4.0,
+      "esperado": "dentro",
+      "porque": "Cláusula 4: defeito em funcionalidade entregue. Nunca se cobra, e o motor não pode nem sugerir."
+    },
+    {
+      "id": "T-08",
+      "titulo": "Configurar servidor e deploy em VPS",
+      "descricao": "Provisionamento, nginx, certificado, rotina de backup.",
+      "horas": 16.0,
+      "esperado": "fora",
+      "porque": "Cláusula 2 exclui infraestrutura e hospedagem nominalmente."
+    },
+    {
+      "id": "T-09",
+      "titulo": "Quarto nível de permissão: auditor (somente leitura)",
+      "descricao": "Novo perfil com acesso de leitura a todos os módulos.",
+      "horas": 7.0,
+      "esperado": "fora",
+      "porque": "O contrato diz TRÊS níveis e nomeia os três. Um quarto amplia o objeto. O número no contrato é o que torna isso decidível."
+    },
+    {
+      "id": "T-10",
+      "titulo": "Reunião de alinhamento semanal",
+      "descricao": "Acompanhamento do projeto com o cliente.",
+      "horas": 12.0,
+      "esperado": "dentro",
+      "porque": "⚠️ ARMADILHA. Não está no objeto, mas é custo de conduzir o projeto, não entrega ampliada. Motor que cobra reunião de alinhamento como aditivo faz a agência passar vergonha com o cliente."
+    }
+  ]
+}
