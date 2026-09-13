@@ -33,9 +33,12 @@ class Metricas:
 
     def __init__(self):
         self.linhas = []          # (gabarito, predito, dificuldade, id)
+        self.confiancas = []      # (confianca, acertou) — para calibração
 
-    def add(self, gabarito, predito, dificuldade="", ident=""):
+    def add(self, gabarito, predito, dificuldade="", ident="", confianca=None):
         self.linhas.append((gabarito, predito, dificuldade or "?", ident))
+        if confianca is not None:
+            self.confiancas.append((float(confianca), gabarito == predito))
 
     # ── contagens cruas ──
     def _n(self, gab=None, pred=None, dif=None):
@@ -62,6 +65,24 @@ class Metricas:
         """⚠️ A MÉTRICA SAGRADA. Fração dos 🔴 mostrados que estava errada."""
         p = self.precisao_vermelho
         return None if p is None else 1.0 - p
+
+    @property
+    def taxa_falso_positivo(self):
+        """FP / (FP + TN) — ⚠️ PERGUNTA DIFERENTE da precisão 🔴.
+
+        precisão 🔴  : dos que ACUSAMOS, quantos procediam
+        FPR          : de tudo que estava DENTRO/ambíguo, quanto acusamos à toa
+
+        As duas podem divergir feio quando as classes são desbalanceadas: num
+        projeto com 2 extraescopos em 200 tarefas, acusar 2 certas e 2 erradas
+        dá precisão 50% e FPR de só 1%. A agência sente a precisão; a saúde do
+        classificador aparece na FPR. Sem as duas, uma esconde a outra.
+        """
+        negativos = self.total - self._n(gab=FORA)     # gabarito != fora
+        if not negativos:
+            return None
+        fp = self._n(pred=FORA) - self._n(gab=FORA, pred=FORA)
+        return fp / negativos
 
     @property
     def precisao_verde(self):
@@ -107,6 +128,24 @@ class Metricas:
             saida[dif] = {"n": n, "acertos": certos, "taxa": certos / n if n else 0.0}
         return saida
 
+    def calibracao(self, faixas=((0.95, 1.01), (0.90, 0.95), (0.85, 0.90),
+                                (0.70, 0.85), (0.0, 0.70))):
+        """⚠️ "confiança 0,93" NÃO QUER DIZER 93% DE CHANCE DE ACERTO.
+
+        É um score DECLARADO pelo modelo, e LLM costuma ser mal calibrado. Só
+        medindo dá pra saber se 0,93 vale 93%, 76% ou 99% — e é essa tabela que
+        um dia escolhe o LIMIAR_FORA empiricamente, em vez de por intuição
+        (hoje 0.85 é palpite, e está anotado como palpite).
+        """
+        saida = {}
+        for lo, hi in faixas:
+            itens = [a for c, a in self.confiancas if lo <= c < hi]
+            if itens:
+                saida[f"{lo:.2f}–{min(hi, 1.0):.2f}"] = {
+                    "n": len(itens),
+                    "acerto": sum(itens) / len(itens)}
+        return saida
+
     def erros(self):
         """⚠️ Os erros ensinam mais que os acertos — devolvidos em ordem de
         gravidade: acusação indevida primeiro."""
@@ -143,6 +182,7 @@ def relatorio(m: Metricas, minimo_amostra: int = 30) -> str:
         L.append("─" * 68)
     L.append(f"  🔴 precisão (dos que acusamos, quantos procedem)  {_pc(m.precisao_vermelho)}")
     L.append(f"  ⚠️  FALSO VERMELHO  (acusação indevida)           {_pc(m.falso_vermelho)}")
+    L.append(f"     taxa de falso positivo  FP/(FP+TN)             {_pc(m.taxa_falso_positivo)}")
     L.append(f"  🟢 precisão                                       {_pc(m.precisao_verde)}")
     L.append(f"     dinheiro perdido (era 🔴, dissemos 🟢)         {_pc(m.dinheiro_perdido)}")
     L.append("─" * 68)
@@ -153,6 +193,13 @@ def relatorio(m: Metricas, minimo_amostra: int = 30) -> str:
     L.append("  por dificuldade (o produto vive em trap/hard/ambiguous):")
     for dif, d in m.por_dificuldade().items():
         L.append(f"     {dif:<11} {d['acertos']:>2}/{d['n']:<2}  {d['taxa']:>5.0%}")
+    cal = m.calibracao()
+    if cal:
+        L.append("─" * 68)
+        L.append("  confiança declarada × acerto real:")
+        L.append("  ⚠️ score do modelo, NÃO probabilidade — 0,93 não quer dizer 93%")
+        for faixa, d in cal.items():
+            L.append(f"     {faixa}   n={d['n']:<3} acertou {d['acerto']:>5.0%}")
     errs = m.erros()
     if errs:
         L.append("─" * 68)

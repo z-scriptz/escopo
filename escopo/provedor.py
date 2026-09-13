@@ -60,10 +60,16 @@ class Provedor:
             return ""                     # API não listou; seguimos e o erro virá
         if self.modelo in disponiveis:
             return self.modelo
-        parecidos = [m for m in disponiveis if self.modelo.split("-")[0] in m][:8]
+        # ⚠️ "Parecidos: (nenhum)" É UM ERRO QUE NÃO AJUDA A CONSERTAR.
+        # Avisar que está errado sem dizer o que é certo obriga outro comando.
+        # Quando nada se parece, mostra o que EXISTE — é o dado que resolve.
+        raiz = self.modelo.split("-")[0]
+        parecidos = [m for m in disponiveis if raiz and raiz in m][:8]
+        lista = parecidos or disponiveis[:12]
+        rotulo = "Parecidos" if parecidos else "Disponíveis nesta conta"
         raise ErroProvedor(
             f"modelo '{self.modelo}' não existe nesta conta/API.\n"
-            f"  Parecidos disponíveis: {', '.join(parecidos) or '(nenhum)'}\n"
+            f"  {rotulo}:\n" + "".join(f"     {m}\n" for m in lista) +
             f"  Corrija CLASSIFIER_MODEL no .env.")
 
     def gerar(self, prompt: str, schema: dict) -> Resposta:
@@ -81,8 +87,11 @@ class Gemini(Provedor):
             raise ErroProvedor(
                 "GEMINI_API_KEY ausente. Ponha no .env da máquina — "
                 "nunca no código, nunca colada no chat.")
-        if not self.modelo:
-            raise ErroProvedor("CLASSIFIER_MODEL ausente no .env.")
+        # ⚠️ MODELO AUSENTE NÃO PODE BARRAR AQUI (13/09/2026).
+        # A 1ª versão levantava no construtor — e `--modelos`, que existe
+        # justamente pra DESCOBRIR o ID, morria antes de listar nada. Ovo e
+        # galinha: pra saber o modelo você precisava já saber o modelo.
+        # A exigência pertence a quem vai GERAR, não a quem vai perguntar.
 
     def _http(self, url: str, corpo: dict = None) -> dict:
         dados = json.dumps(corpo).encode() if corpo is not None else None
@@ -119,6 +128,10 @@ class Gemini(Provedor):
         return sorted(nomes)
 
     def gerar(self, prompt: str, schema: dict) -> Resposta:
+        if not self.modelo:
+            raise ErroProvedor(
+                "CLASSIFIER_MODEL ausente no .env.\n"
+                "  Descubra o ID certo com:  python3 avaliar.py --modelos")
         corpo = {
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {

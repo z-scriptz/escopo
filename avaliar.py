@@ -127,7 +127,8 @@ def main() -> int:
             esperado = t.get("esperado", "?")
             r = classificar.ultima
             acertou = (esperado == o.classificacao)
-            m.add(esperado, o.classificacao, t.get("dificuldade", "?"), o.id)
+            m.add(esperado, o.classificacao, t.get("dificuldade", "?"), o.id,
+                  confianca=o.confianca)
             if r:
                 tok_in += r.tokens_entrada
                 tok_out += r.tokens_saida

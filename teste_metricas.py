@@ -107,6 +107,42 @@ checa("dinheiro perdido vem depois", _erros[1][3] == "PERDIDO")
 checa("o relatório rotula a acusação indevida",
       "ACUSAÇÃO INDEVIDA" in relatorio(m))
 
+print("\n── ⚠️ PRECISÃO 🔴 E FPR RESPONDEM PERGUNTAS DIFERENTES ──")
+# ⚠️ com classes desbalanceadas uma esconde a outra. Projeto com 2 extraescopos
+# em 200 tarefas: acusar 2 certas e 2 erradas dá precisão 50% e FPR de 1%.
+m = Metricas()
+m.add(FORA, FORA, "easy", "A");  m.add(FORA, FORA, "easy", "B")
+m.add(DENTRO, FORA, "trap", "C"); m.add(DENTRO, FORA, "trap", "D")
+for i in range(196):
+    m.add(DENTRO, DENTRO, "easy", f"Z{i}")
+checa("precisão 🔴 = 2 de 4 acusados", m.precisao_vermelho == 0.5)
+checa("⚠️ mas a FPR é ~1% (2 erradas em 198 que estavam dentro)",
+      abs(m.taxa_falso_positivo - 2 / 198) < 1e-9,
+      str(m.taxa_falso_positivo))
+checa("as duas aparecem no relatório",
+      "precisão (dos que acusamos" in relatorio(m)
+      and "FP/(FP+TN)" in relatorio(m))
+checa("sem nenhum caso 'dentro', FPR é None em vez de dividir por zero",
+      m_de([(FORA, FORA)]).taxa_falso_positivo is None)
+
+print("\n── ⚠️ CONFIANÇA É SCORE DECLARADO, NÃO PROBABILIDADE ──")
+# "0,93" não quer dizer 93% de chance de acerto. LLM costuma ser mal calibrado,
+# e o LIMIAR_FORA=0.85 de hoje é palpite — esta tabela é o que um dia troca o
+# palpite por medição.
+m = Metricas()
+for _ in range(10):
+    m.add(FORA, FORA, "easy", "x", confianca=0.97)      # alta e certa
+for _ in range(10):
+    m.add(DENTRO, FORA, "trap", "y", confianca=0.92)    # alta e ERRADA
+cal = m.calibracao()
+checa("a faixa 0.95+ aparece com acerto alto", cal["0.95–1.00"]["acerto"] == 1.0)
+checa("⚠️ e a faixa 0.90–0.95 denuncia score alto com acerto zero",
+      cal["0.90–0.95"]["acerto"] == 0.0, str(cal))
+checa("o relatório avisa que score não é probabilidade",
+      "NÃO probabilidade" in relatorio(m))
+checa("sem confiança registrada, a tabela some em vez de mentir",
+      m_de([(FORA, FORA)]).calibracao() == {})
+
 print("\n── o provedor não deixa ID de modelo inventado passar ──")
 # ⚠️ eu não tenho como verificar, escrevendo isto, que um dado ID existe.
 # Quem responde é a API — e ela responde ANTES da avaliação, não no meio.
