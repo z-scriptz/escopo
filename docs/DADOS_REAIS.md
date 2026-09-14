@@ -151,9 +151,10 @@ tarefa
 
 Com algumas dezenas disso dá pra responder o que hoje é palpite:
 
-- o `LIMIAR_FORA = 0.85` está certo, ou deveria ser 0.95? (**hipótese H1**,
-  levantada na rodada de 13/09 e ainda não testada)
-- "confiança 0,93" corresponde a quantos por cento de acerto real?
+- o `LIMIAR_FORA = 0.93` **provisório** se sustenta? (escolhido em 10 acusações
+  sintéticas — recalibrar com ≥100 tarefas reais e ≥20 🔴 reais)
+- "confiança 0,93" corresponde a quantos por cento de acerto real? (a tabela de
+  calibração existe; falta dado real pra preencher)
 - que tipo de tarefa gera mais extraescopo?
 - que redação de contrato produz mais ambiguidade?
 
