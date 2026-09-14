@@ -103,6 +103,42 @@ preferiu não cobrar"*, então o ESCOPO não pode ser uma ferramenta de cobranç
 tem que ser uma ferramenta de **decisão informada**. Muda o texto do laudo, muda
 o pitch, muda tudo.
 
+## Quando a resposta for SIM: o que fazer nos primeiros 10 minutos
+
+⚠️ **Não improvise na hora.** O entusiasmo de quem topou tem prazo de validade
+curto, e "me manda em outro formato" é como um piloto morre.
+
+```bash
+python3 importar.py tarefas.csv --contrato contrato.txt \
+    --valor 68000 --hora 200 --cliente "Agência X" --saida real_01
+```
+
+O importador aceita CSV ou JSON de Jira, Trello, ClickUp, Notion ou planilha —
+reconhece as colunas em vez de exigir que a agência renomeie nada, entende
+`12h30`, `1d 4h`, `12,5` e `45m`, e **não estima hora que não entendeu** (hora
+chutada vira cobrança chutada).
+
+Ele gera DOIS arquivos:
+
+```
+dados_reais/real_01.json           o caso
+dados_reais/real_01_gabarito.csv   ⚠️ para o responsável preencher ANTES
+```
+
+**A ordem é o experimento inteiro:**
+
+```
+1. manda o _gabarito.csv         ← sem NADA da nossa saída dentro
+2. recebe preenchido
+3. SÓ ENTÃO roda o ESCOPO
+4. compara
+```
+
+📌 A planilha de gabarito não tem nenhuma coluna nossa, de propósito. Se
+trouxesse "o ESCOPO achou que…", a pessoa concordaria com a sugestão em vez de
+pensar, e o gabarito viraria eco. Ela também já pede o nível A: houve aditivo?
+foi cobrado? quanto? o cliente aceitou? tem documento?
+
 ## O que vira dataset
 
 ```
