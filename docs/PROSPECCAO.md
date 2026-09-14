@@ -66,6 +66,40 @@ que a gente imaginou — e é melhor saber com 3 conversas do que com 5 meses.
 
 A resposta é o dado mais barato que existe sobre o tamanho do mercado.
 
+### O que a pergunta devolveu (14/09)
+
+Perguntados se a maioria já resolveu, responderam: **"é uma grande dor para
+pequenas e médias empresas"**.
+
+⚠️ **Mas nem toda evidência pesa igual:**
+
+```
+"eu sofro com isso hoje"       forte   — experiência própria
+"a maioria já resolveu"        forte   — experiência própria
+"é uma grande dor pra PME"     MÉDIO   — opinião sobre os outros
+```
+
+O que veio é do terceiro tipo. Vale — são pessoas de dentro do setor falando dos
+pares — mas é mais fraco que *"eu perdi R$ 8 mil mês passado"*. E é comum as
+pessoas localizarem o problema nos outros: *"é uma dor pra PME"* às vezes quer
+dizer *"não pra mim, pra eles"*.
+
+📌 **Somado ao relato da agência madura, sustenta a hipótese da faixa de
+maturidade:** a dor existe e se concentra num intervalo — que é o 3–30 pessoas
+já no filtro. O mercado não evaporou.
+
+**E a pergunta aberta mudou de lugar.** Não é mais "a dor existe?" e sim:
+
+> quem sente a dor hoje vai fazer alguma coisa a respeito?
+
+**A pergunta que encontra o piloto certo:**
+
+> No projeto mais recente de vocês, teve alguma coisa que o cliente pediu no meio
+> do caminho e que ficou fora do combinado? Mesmo coisa pequena.
+
+Quem responder com **exemplo concreto e recente** tem a dor viva — é com esse que
+se insiste no piloto. "Já tive" e "acho que os outros têm" não servem.
+
 ### ⚠️ NDA é barreira estrutural, não timidez
 
 *"Todo serviço que a gente presta tem contrato de confidencialidade"* não se
