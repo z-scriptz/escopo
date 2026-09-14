@@ -26,6 +26,52 @@ mandar mensagem pra elas queima seu tempo e a sua taxa de resposta.
 📌 **Empresa que fatura por hora não perde dinheiro com extraescopo — ela
 fatura.** É o oposto do nosso cliente. Descartar essas dobra sua taxa de acerto.
 
+### ⚠️ O sinal que só apareceu conversando (14/09)
+
+Uma software house respondeu:
+
+> *"no início eu sofria um pouco, mas hoje em dia isso não atrapalha muito a
+> gente não, porque a gente monta todas as etapas antes do pagamento e deixa
+> especificado qualquer tipo de alteração, valor que é cobrado a mais"*
+
+**Ela resolveu scope creep com contrato e reunião — não com ferramenta.**
+
+📌 Isso confirma que a dor é real (*"no início eu sofria"*) e mostra que ela tem
+uma cura barata que não passa por software. Então some ao filtro:
+
+**Sinais de que a empresa provavelmente JÁ RESOLVEU** (e não é cliente hoje):
+
+- proposta dividida em etapas com valor de alteração definido **antes** da
+  assinatura
+- tabela de preço para mudança fora do escopo
+- change request como parte normal do processo
+- o dono fala do assunto com tranquilidade, no passado
+
+**Sinais de que AINDA DÓI:**
+
+- contrato curto, ou "conforme proposta comercial" sem a proposta anexa
+- sem limite de revisões escrito
+- o dono reclama no presente, com exemplo recente
+- aditivo é exceção, não rotina
+
+⚠️ **E aqui mora o risco comercial do ESCOPO:** quem já resolveu tem dinheiro e
+não precisa; quem precisa costuma ter menos dinheiro e menos disciplina. Se esse
+padrão se repetir nas próximas conversas, o perfil de cliente é mais estreito do
+que a gente imaginou — e é melhor saber com 3 conversas do que com 5 meses.
+
+**Pergunta obrigatória em toda conversa, mesmo quando é NÃO:**
+
+> Você acha que a maioria das empresas do seu tamanho já resolveu isso, ou ainda
+> é comum sofrer?
+
+A resposta é o dado mais barato que existe sobre o tamanho do mercado.
+
+### ⚠️ NDA é barreira estrutural, não timidez
+
+*"Todo serviço que a gente presta tem contrato de confidencialidade"* não se
+resolve com anonimização nem com insistência — o sigilo cobre o trabalho em si.
+Agradeça, pergunte sobre o problema (isso o NDA não cobre) e siga.
+
 ---
 
 ## Onde achar, em ordem de rendimento
