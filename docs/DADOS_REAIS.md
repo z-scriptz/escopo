@@ -79,6 +79,48 @@ Não comece por *"me manda seu contrato"*. Comece pela pesquisa:
 📌 Ninguém entrega documento pra um vendedor. Quase todo mundo ajuda um
 estudante. **E é verdade** — não é técnica de venda, é o que está acontecendo.
 
+## ⚠️ Quando ele diz sim e depois fica TÍMIDO
+
+Acontece, e é onde o piloto morre. O que passa na cabeça dele:
+
+*"contrato de cliente é confidencial, posso mandar?"* · *"vou ter que pedir
+autorização?"* · *"e se for vergonhoso?"* · *"quanto trabalho isso me dá?"*
+
+Três destravas, em ordem de eficácia:
+
+**1. Faça junto, por chamada** — mata o medo de confidencialidade inteiro,
+porque o documento nunca sai da mão dele:
+
+> Que tal a gente ver juntos numa call de 20 minutos? Você compartilha a tela e
+> eu nem preciso ficar com os arquivos. Eu só anoto as classificações e rodo
+> depois com o que você autorizar.
+
+**2. Encolha o pedido** — contrato + export + planilha é muito pra quem hesitou:
+
+> Pra começar me manda só a cláusula do objeto — aquele parágrafo que diz o que
+> foi contratado — e uns 15 títulos de tarefa. Se sair algo interessante, aí a
+> gente vê o resto.
+
+Um parágrafo e 15 linhas ele manda **hoje**, por WhatsApp. E o resultado de 15
+tarefas é o que faz ele querer mandar as outras 60.
+
+**3. Dê a garantia antes de ele pedir:**
+
+> Compromisso: não compartilho com ninguém, não publico nada identificável, uso
+> só pra validar o método, e apago em 90 dias ou quando você pedir — o que vier
+> primeiro. Se preferir, troca nome do cliente e valores antes de mandar, que
+> funciona igual.
+
+## ⚠️ Enquadramento: o problema é do CONTRATO, não deles
+
+*"Vocês deixaram R$ 18.000 na mesa"* é lido como *"vocês são desorganizados"* —
+ainda mais vindo de um estudante. Ninguém quer receber isso.
+
+> ✅ "Olha os três pontos onde a redação do contrato deixou brecha"
+> ❌ "Olha o que vocês esqueceram de cobrar"
+
+O primeiro é uma conversa que o dono **quer** ter. O segundo é uma que ele evita.
+
 ## As perguntas, depois do gabarito cego
 
 Faça **nesta ordem**, e só depois de ter a classificação dele.
